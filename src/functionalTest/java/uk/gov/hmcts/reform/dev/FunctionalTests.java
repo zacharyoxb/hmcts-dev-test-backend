@@ -2,16 +2,14 @@ package uk.gov.hmcts.reform.dev;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import uk.gov.hmcts.reform.dev.models.TaskState;
 
 import java.util.Date;
-import java.util.UUID;
+import java.util.HashMap;
+import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -20,7 +18,7 @@ import static org.hamcrest.Matchers.equalTo;
 class FunctionalTests {
     protected static final String CONTENT_TYPE_VALUE = "application/json";
 
-    @Value("${TEST_URL:http://localhost:4000/create-task}")
+    @Value("${TEST_URL:http://localhost:4000}")
     private String testUrl;
 
     @BeforeEach
@@ -31,25 +29,21 @@ class FunctionalTests {
 
     @Test
     void makeNewTask() {
-        String title = "Example";
-        String description = "Example description";
-        TaskState state = TaskState.NOT_COMPLETED;
-        Date dueDateTime = new Date();
+        Map<String, Object> taskMap = new HashMap<>();
+        taskMap.put("title", "Example");
+        taskMap.put("status", "NOT_COMPLETED");
+        taskMap.put("description", "Example description");
+        taskMap.put("dueDate", new Date());
 
         given()
-            .params("title", title,
-                    "description", description,
-                    "state", state,
-                    "dueDateTime", dueDateTime
-            )
             .contentType(ContentType.JSON)
+            .body(taskMap)
             .when()
-            .post()
+            .post("/create-task")
             .then()
             .statusCode(201)
-            .body("title", equalTo(title))
-            .body("description", equalTo(description))
-            .body("state", equalTo(state.toString()))
-            .body("dueDateTime", equalTo(dueDateTime.toString()));
+            .body("title", equalTo("Example"))
+            .body("description", equalTo("Example description"))
+            .body("status", equalTo("NOT_COMPLETED"));
     }
 }

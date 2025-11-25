@@ -1,9 +1,19 @@
 package uk.gov.hmcts.reform.dev.models;
 
-import lombok.RequiredArgsConstructor;
-import lombok.AllArgsConstructor;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
+
 import lombok.Getter;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
+import lombok.Builder;
 
 import java.util.Date;
 
@@ -12,13 +22,28 @@ import java.util.Date;
  * All attributes are required in the constructor
  * apart from description
  * */
-@RequiredArgsConstructor
-@AllArgsConstructor
+
+@Entity
+@Table(name = "tasks")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
 public class Task {
-    private final String title;
-    private String description = "";
-    private final TaskState status;
-    private final Date dueDate;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "title", nullable = false)
+    private String title;
+
+    @Column(name = "status", nullable = false)
+    private TaskState status;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "dueDate", nullable = false)
+    private Date dueDate;
 }

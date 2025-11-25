@@ -1,17 +1,18 @@
 package uk.gov.hmcts.reform.dev.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import uk.gov.hmcts.reform.dev.models.Task;
-import uk.gov.hmcts.reform.dev.models.TaskState;
-
-import java.util.Date;
 
 @RestController
 public class TaskController {
 
-    @GetMapping(value = "/create-task", produces = "application/json")
-    public Task createTask() {
-        return new Task("Example", "Description", TaskState.NOT_COMPLETED, new Date());
+    @PostMapping(value = "/create-task", consumes = "application/json", produces = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Task createTask(@RequestBody Task task) {
+        return task;
     }
 }
