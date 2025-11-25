@@ -39,7 +39,7 @@ class FunctionalTests {
             .contentType(ContentType.JSON)
             .body(taskMap)
             .when()
-            .post("/create-task")
+            .post("/tasks/create-task")
             .then()
             .statusCode(201)
             .body("title", equalTo("Example"))
