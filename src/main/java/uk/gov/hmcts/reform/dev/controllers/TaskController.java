@@ -19,6 +19,12 @@ public class TaskController {
         this.taskRepository = taskRepository;
     }
 
+    /**
+     * Takes a task as input and stores it in the database.
+     * Task's id is automatically generated.
+     * @param task - task to store
+     * @return saved task.
+     */
     @PostMapping(value = "/create-task", consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public Task createTask(@RequestBody Task task) {

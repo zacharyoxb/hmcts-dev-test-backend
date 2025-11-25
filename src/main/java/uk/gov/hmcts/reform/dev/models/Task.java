@@ -19,8 +19,8 @@ import java.util.Date;
 
 /**
  * Type to represent a Task.
- * All attributes are required in the constructor
- * apart from description
+ * Id is automatically generated and description
+ * is optional.
  * */
 
 @Entity
