@@ -1,5 +1,5 @@
 # HMCTS Dev Test Backend
 CANDIDATE NOTES:
-To make this work the correct url with username and password needs to be
-placed in application.yaml. Personally I just uncommented the current db config and swapped postgres for mysql in the driver class name and url.
-I used a localhost mysql instance with my own details. I am not saving the changes to my yaml file for obvious reasons.
+This does not work as is - you must insert db details into the yaml file (obviously was not going to put own login details in)
+Although the standard backend used postgres, I used mysql therefore the driver has also beem changed to that.
+Once the db details have been inserted, it should just run after build.
