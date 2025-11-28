@@ -28,9 +28,9 @@ spring:
     name: Dev Test
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver # Insert own details here.
-    url: jdbc:mysql://{HOST}:{PORT}/{TABLE_NAME}?useSSL=false&serverTimezone=UTC
-    username: {USERNAME}
-    password: {PASSWORD}
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_TABLE_NAME}?useSSL=false&serverTimezone=UTC
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     properties:
       charSet: UTF-8
     hikari:
